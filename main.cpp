@@ -1,23 +1,53 @@
-#include<iostream>
-using namespace std;
-
+#include <stdio.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 int main() {
 
-	int input;
-	int num;
+	ALLEGRO_DISPLAY *display = NULL;
+	ALLEGRO_SAMPLE *sample = NULL;
 
+	if (!al_init()) {
+		fprintf(stderr, "failed to initialize allegro!\n");
+		return -1;
+	}
 
-	cout << "what song do you what to listen 1,2,3,4" << endl;
-	cin >> input;
+	if (!al_install_audio()) {
+		fprintf(stderr, "failed to initialize audio!\n");
+		return -1;
+	}
 
-	if (input<1)
-		cout << "all around me familiar faces worn out places " << endl;
-	else if (input<2)
-		cout << "Every step that I take is another mistake to you Caught in the undertow, just caught in the undertow" << endl;
-	else if (input<3)
-		cout << "Despacito Mami yo sé que te va a gustar Despacito Mami yo sé que te va a encantar Mueve dale vamo' Despacito Mami yo sé que te va a gustar Mueve dale vamo' Sabrosito Vamo' a bailar" << endl;
-	else (input<4);
-		cout << "I've got no strings To hold me down To make me fret Or make me frown I had strings But now I'm free There are no strings on me" << endl;
+	if (!al_init_acodec_addon()) {
+		fprintf(stderr, "failed to initialize audio codecs!\n");
+		return -1;
+	}
 
+	if (!al_reserve_samples(1)) {
+		fprintf(stderr, "failed to reserve samples!\n");
+		return -1;
+	}
+
+	sample = al_load_sample("dogg.wav");
+
+	if (!sample) {
+		printf("Audio clip sample not loaded!\n");
+		return -1;
+	}
+
+	display = al_create_display(800, 800);
+
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		return -1;
+	}
+
+	/* Loop the sample until the display closes. */
+	al_play_sample(sample, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
+
+	al_rest(10.0);
+
+	al_destroy_display(display);
+	al_destroy_sample(sample);
+	return 0;
 }
