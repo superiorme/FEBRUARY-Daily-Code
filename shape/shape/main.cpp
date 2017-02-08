@@ -18,14 +18,12 @@ int main(){
 		
 
 
+		al_draw_triangle(100, 150, 160, 65, 80, 90, al_map_rgb(0, 100, 6), 20);
 
+		al_draw_triangle(160, 120, 180, 40, 70, 75, al_map_rgb(0, 5, 50), 10);
 
-
-		al_draw_triangle(50, 150, 60, 65, 85, 90, al_map_rgb(0, 100, 6), 2);
-
-		al_draw_triangle(60, 10, 80, 40, 50, 75, al_map_rgb(0, 5, 200), 10);
-
-		al_draw_triangle(90, 60, 25, 20, 30, 50, al_map_rgb(0, 50, 60), 10);
+		al_draw_triangle(190, 160, 125, 20, 30, 50, al_map_rgb(0, 50, 90), 10);
+		
 		
 		
 
@@ -45,8 +43,6 @@ int main(){
 		al_destroy_display;
 
 		
-
-
 
 		return 0;
 
